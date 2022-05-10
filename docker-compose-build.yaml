@@ -1,0 +1,15 @@
+# version: '3.8'
+
+# services:
+#     back_end:
+#         image: chayanpx/final-backend:1.0.0
+#         build:
+#             context: ./back-end
+#             target: production
+#             dockerfile: ./Dockerfile
+#     front_end:
+#         image: chayanpx/final-frontend:1.0.0
+#         build:
+#             context: ./front-end
+#             target: production
+#             dockerfile: ./Dockerfile

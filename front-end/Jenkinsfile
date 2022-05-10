@@ -1,0 +1,68 @@
+// pipeline {
+//     agent any
+//     options {
+//         ansiColor('xterm')
+//     }
+//     stages {
+//         stage('Pull code') {
+//             steps {
+//                 checkout scm
+//             }
+//         }
+//         stage('Pull code') {
+//             steps {
+//                 git branch: 'main', url: 'https://github.com/chayanpx/three-magic-hour-final.git'
+//             }
+//         }
+//         stage('Download dependency') {
+//             steps {
+//                 dir('./front-end'){
+//                     sh 'yarn install'
+//                 }
+//             }
+//         }
+//         stage('Run unit test and Generate unit test report') {
+//             steps {
+//                 dir('./front-end') {
+//                     sh 'yarn run jest:unit:cov'
+                    
+//                 }
+//             }
+//         }
+//         stage('Run component test and Generate component test report') {
+//             steps {
+//                 dir('./front-end'){
+//                     sh 'yarn run jest:component:cov'
+//                 }
+//             }
+//         }
+//         stage('Build and Deploy') {
+//             steps {
+//                 echo 'step : deploy'
+//                 withCredentials([string(credentialsId: 'frontend-server', variable: 'HOST'), string(credentialsId: 'team-14-username', variable: 'USERNAME'), string(credentialsId: 'team-14-password', variable: 'PASSWORD')]) {
+//                     script {
+//                         def remote = [:]
+//                         remote.name = "team-14-frontend"
+//                         remote.host = "${HOST}"
+//                         remote.user = "${USERNAME}"
+//                         remote.password = "${PASSWORD}"
+//                         remote.allowAnyHosts = true
+//                         sshCommand remote: remote, command: "git clone -b main https://github.com/pspapleng/Project-SW-dev-tool-env-14.git team-14-frontend"
+//                         sshCommand remote: remote, command: "cd team-14-frontend && VERSION=\$(git describe --tags --abbrev=0) docker-compose -f ./docker-compose-build.yaml build front_end"
+//                         sshCommand remote: remote, command: "cd team-14-frontend && VERSION=\$(git describe --tags --abbrev=0) docker-compose -f ./docker-compose-deploy.yaml up -d front_end"
+//                         sshCommand remote: remote, command: "rm -r team-14-frontend"
+//                     }
+//                 }        
+//             }
+//         }
+//         stage('Run E2E test and Generate E2E test report') {
+//             steps {
+//                 dir('./front-end'){
+//                     sh 'mkdir -p ./.nyc_output'
+//                     sh 'yarn cover:e2e'
+//                     \
+//                 }
+//             }
+//         }
+//     }
+// }
